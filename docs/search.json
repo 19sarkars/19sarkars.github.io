@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "posts/probability/post.html",
+    "href": "posts/probability/post.html",
+    "title": "Probability Theory and Random Variables",
+    "section": "",
+    "text": "Probability theory is something you may remember if you have taken combinatorics. As we know, probability refers to the chance of an event occurring. As for probability theory, it relies on probability distributions and random variables to determine the outcome of a situation."
+  },
+  {
+    "objectID": "posts/probability/post.html#code-example",
+    "href": "posts/probability/post.html#code-example",
+    "title": "Probability Theory and Random Variables",
+    "section": "Code Example",
+    "text": "Code Example\n\n# Let's view an example of what a probability distribution plot looks like\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.stats import norm\n\n# Generate random data from a normal distribution\ndata = np.random.normal(loc=0, scale=1, size=1000)\n\n# Plot the histogram\nplt.hist(data, bins=30, density=True, alpha=0.5, color='b')\n\n# Plot the probability density function (PDF) of the normal distribution\nxmin, xmax = plt.xlim()\nx = np.linspace(xmin, xmax, 100)\np = norm.pdf(x, 0, 1)\nplt.plot(x, p, 'k', linewidth=2)\n\nplt.title('Normal Distribution and PDF')\nplt.xlabel('Value')\nplt.ylabel('Probability Density')\nplt.show()"
+  },
+  {
+    "objectID": "posts/clustering/post.html",
+    "href": "posts/clustering/post.html",
+    "title": "Clustering",
+    "section": "",
+    "text": "Clustering is an unsupervised learning method in machine learning. In unsupervised learning, the input data is unlabeled and it is therefore the machine learning model’s job to find correlation between the data points. Specifically, clustering divides a set of data points into groups, where in each group, the data points are similar in some aspect. Each of these groups is called a “cluster”."
+  },
+  {
+    "objectID": "posts/clustering/post.html#code-example",
+    "href": "posts/clustering/post.html#code-example",
+    "title": "Clustering",
+    "section": "Code Example",
+    "text": "Code Example\n\n# Let's take a look at how K-means clustering can work on randomly generated data\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster import KMeans\n\nnp.random.seed(42)\n\nX= -2 * np.random.rand(100,2)\nX1 = 1 + 2 * np.random.rand(50,2)\nX[50:100, :] = X1\nplt.scatter(X[ : , 0], X[ :, 1], s = 50, c = 'b')\nplt.show()\n\n\n\n\n\n# Now let's take those random data points and apply K-Means clustering to them\nkmeans = KMeans(n_clusters=2, random_state=42)\nkmeans.fit(X)\ncenters = kmeans.cluster_centers_\nlabels = kmeans.labels_\n\nplt.scatter(X[:, 0], X[:, 1], c=labels, s=30, cmap='viridis', alpha=0.8)\nplt.scatter(centers[:, 0], centers[:, 1], c='red', s=200, marker='X', label='Cluster Centers')\nplt.title('K-Means Clustering Results')\nplt.xlabel('Feature 1')\nplt.ylabel('Feature 2')\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "posts/anomaly/post.html",
+    "href": "posts/anomaly/post.html",
+    "title": "Anomaly/Outlier Detection",
+    "section": "",
+    "text": "Anomaly detection is a process that is very commonly found in today’s world. It is the process of detecting data points that are outliers, or fall outside the normal range."
+  },
+  {
+    "objectID": "posts/anomaly/post.html#code-example",
+    "href": "posts/anomaly/post.html#code-example",
+    "title": "Anomaly/Outlier Detection",
+    "section": "Code Example",
+    "text": "Code Example\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.ensemble import IsolationForest\n\n# Generate a one-dimensional dataset with anomalies\nnp.random.seed(42)\nnormal_data = np.random.normal(loc=0, scale=1, size=1000)\nanomalies = np.concatenate([normal_data, np.random.normal(loc=10, scale=1, size=10)])\n\n# Reshape the data to a column vector\ndata = anomalies.reshape(-1, 1)\n\n# Fit the Isolation Forest model\nclf = IsolationForest(contamination=0.01, random_state=42)  # Contamination is the expected proportion of outliers\nclf.fit(data)\n\n# Predict the anomalies\npredictions = clf.predict(data)\n\n# Visualize the results\nplt.scatter(range(len(data)), data, c=np.where(predictions == -1, 'red', 'blue'))\nplt.xlabel('Data Point Index')\nplt.ylabel('Value')\nplt.title('Anomaly Detection with Isolation Forest')\nplt.legend()\nplt.show()\n\n\n\n\n\nWe generate a one-dimensional dataset with normal data points and a few anomalies.\nWe reshape the data to a column vector as scikit-learn’s Isolation Forest expects a 2D array.\nWe fit an Isolation Forest model to the data, specifying the contamination parameter to indicate the expected proportion of outliers.\nWe predict whether each data point is an anomaly or not.\nWe visualize the data points, coloring anomalies in red."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Hi, my name is Shivangi Sarkar. I’m an MEng student at Virginia Tech with a concentration in Data Analytics and AI."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MLblog",
+    "section": "",
+    "text": "Anomaly/Outlier Detection\n\n\n\n\n\n\n\nAnomaly detection\n\n\n\n\nAn introduction to anomaly/outlier detection in machine learning.\n\n\n\n\n\n\nNov 21, 2023\n\n\nShivangi Sarkar\n\n\n\n\n\n\n  \n\n\n\n\nClassification\n\n\n\n\n\n\n\nClassification\n\n\nSupervised learning\n\n\nPrediction\n\n\n\n\nAn introduction to classification in machine learning.\n\n\n\n\n\n\nNov 18, 2023\n\n\nShivangi Sarkar\n\n\n\n\n\n\n  \n\n\n\n\nLinear and Nonlinear Regression\n\n\n\n\n\n\n\nRegression\n\n\nPrediction\n\n\n\n\nAn introduction to linear and nonlinear regression.\n\n\n\n\n\n\nNov 16, 2023\n\n\nShivangi Sarkar\n\n\n\n\n\n\n  \n\n\n\n\nClustering\n\n\n\n\n\n\n\nClustering\n\n\nUnsupervised learning\n\n\n\n\nAn introduction to clustering.\n\n\n\n\n\n\nNov 15, 2023\n\n\nShivangi Sarkar\n\n\n\n\n\n\n  \n\n\n\n\nProbability Theory and Random Variables\n\n\n\n\n\n\n\nProbability\n\n\n\n\nAn introduction to probability theory and random variables.\n\n\n\n\n\n\nNov 10, 2023\n\n\nShivangi Sarkar\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/classification/post.html",
+    "href": "posts/classification/post.html",
+    "title": "Classification",
+    "section": "",
+    "text": "Classification is a machine learning method that relies on supervised learning (this is where the data is labeled). This task uses data to predict categories for an input. For example, an image could be shown to a model and it could categorize the image as either a cat or dog."
+  },
+  {
+    "objectID": "posts/classification/post.html#code-example",
+    "href": "posts/classification/post.html#code-example",
+    "title": "Classification",
+    "section": "Code Example",
+    "text": "Code Example\n\n# First we will load the dataset we will be using.\nfrom sklearn.datasets import load_wine\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.metrics import accuracy_score\nimport pandas as pd\n\n# This data contains the measurements of different attributes of wines grown by three different cultivators in Italy.\n# Our decision tree will be able to determine which category it belongs in based on the given measurements.\nwine = load_wine()\nX = wine.data\ny = wine.target\n\n# load the dataframe\ndf = pd.DataFrame(wine.data, columns = wine.feature_names)\n\n# add labels\ndf['label'] = wine.target\n\n# Let's get a preview of what the data looks like\ndf.head()\n\n\n\n\n\n\n\n\nalcohol\nmalic_acid\nash\nalcalinity_of_ash\nmagnesium\ntotal_phenols\nflavanoids\nnonflavanoid_phenols\nproanthocyanins\ncolor_intensity\nhue\nod280/od315_of_diluted_wines\nproline\nlabel\n\n\n\n\n0\n14.23\n1.71\n2.43\n15.6\n127.0\n2.80\n3.06\n0.28\n2.29\n5.64\n1.04\n3.92\n1065.0\n0\n\n\n1\n13.20\n1.78\n2.14\n11.2\n100.0\n2.65\n2.76\n0.26\n1.28\n4.38\n1.05\n3.40\n1050.0\n0\n\n\n2\n13.16\n2.36\n2.67\n18.6\n101.0\n2.80\n3.24\n0.30\n2.81\n5.68\n1.03\n3.17\n1185.0\n0\n\n\n3\n14.37\n1.95\n2.50\n16.8\n113.0\n3.85\n3.49\n0.24\n2.18\n7.80\n0.86\n3.45\n1480.0\n0\n\n\n4\n13.24\n2.59\n2.87\n21.0\n118.0\n2.80\n2.69\n0.39\n1.82\n4.32\n1.04\n2.93\n735.0\n0\n\n\n\n\n\n\n\n\n# Let's split the data\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Create a Decision Tree classifier\nmodel = DecisionTreeClassifier(random_state=42)\n\n# Training\nmodel.fit(X_train, y_train)\n\n# Make predictions\ny_pred = model.predict(X_test)\n\n# Determine accuracy\naccuracy = accuracy_score(y_test, y_pred)\nprint(f\"Accuracy: {accuracy:.2f}\")\n\nAccuracy: 0.94\n\n\n\nimport matplotlib.pyplot as plt\nfrom sklearn.tree import plot_tree\n\n# Let's generate a visualization of what the model looks like\nplt.figure(figsize=(12, 8))\nplot_tree(model, feature_names=wine.feature_names, class_names=wine.target_names.tolist(), filled=True, rounded=True)\nplt.show()"
+  },
+  {
+    "objectID": "posts/linear_reg/post.html",
+    "href": "posts/linear_reg/post.html",
+    "title": "Linear and Nonlinear Regression",
+    "section": "",
+    "text": "Linear regression is simply a model that estimates the relationship one independent variable and one dependent variable. This relationship is assumed to be linear, and is therefore represented by a straight line."
+  },
+  {
+    "objectID": "posts/linear_reg/post.html#code-example",
+    "href": "posts/linear_reg/post.html#code-example",
+    "title": "Linear and Nonlinear Regression",
+    "section": "Code example",
+    "text": "Code example\n\nfrom sklearn.datasets import load_breast_cancer\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.metrics import accuracy_score, classification_report\n\n# First we will load the dataset we will be using.\ncancer = load_breast_cancer()\n\n# load the dataframe\ndf = pd.DataFrame(cancer.data, columns = cancer.feature_names)\n\n# add labels\ndf['target'] = cancer.target\n\n# Let's get a preview of what the data looks like\ndf.head()\n\n\n\n\n\n\n\n\nmean radius\nmean texture\nmean perimeter\nmean area\nmean smoothness\nmean compactness\nmean concavity\nmean concave points\nmean symmetry\nmean fractal dimension\n...\nworst texture\nworst perimeter\nworst area\nworst smoothness\nworst compactness\nworst concavity\nworst concave points\nworst symmetry\nworst fractal dimension\ntarget\n\n\n\n\n0\n17.99\n10.38\n122.80\n1001.0\n0.11840\n0.27760\n0.3001\n0.14710\n0.2419\n0.07871\n...\n17.33\n184.60\n2019.0\n0.1622\n0.6656\n0.7119\n0.2654\n0.4601\n0.11890\n0\n\n\n1\n20.57\n17.77\n132.90\n1326.0\n0.08474\n0.07864\n0.0869\n0.07017\n0.1812\n0.05667\n...\n23.41\n158.80\n1956.0\n0.1238\n0.1866\n0.2416\n0.1860\n0.2750\n0.08902\n0\n\n\n2\n19.69\n21.25\n130.00\n1203.0\n0.10960\n0.15990\n0.1974\n0.12790\n0.2069\n0.05999\n...\n25.53\n152.50\n1709.0\n0.1444\n0.4245\n0.4504\n0.2430\n0.3613\n0.08758\n0\n\n\n3\n11.42\n20.38\n77.58\n386.1\n0.14250\n0.28390\n0.2414\n0.10520\n0.2597\n0.09744\n...\n26.50\n98.87\n567.7\n0.2098\n0.8663\n0.6869\n0.2575\n0.6638\n0.17300\n0\n\n\n4\n20.29\n14.34\n135.10\n1297.0\n0.10030\n0.13280\n0.1980\n0.10430\n0.1809\n0.05883\n...\n16.67\n152.20\n1575.0\n0.1374\n0.2050\n0.4000\n0.1625\n0.2364\n0.07678\n0\n\n\n\n\n5 rows × 31 columns\n\n\n\n\nX = df.drop('target', axis=1)\ny = df['target']\n\n# Now let's split the dataset into a training and testing set\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Preprocess the data\n# Standardize the features\nscaler = StandardScaler()\nX_train = scaler.fit_transform(X_train)\nX_test = scaler.transform(X_test)\n\n# Create a logistic regression model\nmodel = LogisticRegression()\n\n# Train the model\nmodel.fit(X_train, y_train)\n\n# Make predictions with the test data\ny_pred = model.predict(X_test)\n\n# Check accuracy\naccuracy = accuracy_score(y_test, y_pred)\nprint(f\"Accuracy: {accuracy:.2f}\")\n\nAccuracy: 0.97\n\n\n\n# Let's get a visual representation of the model's performance\nfrom sklearn.metrics import confusion_matrix\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nmatrix = confusion_matrix(y_test, y_pred)\n\nplt.figure(figsize=(6, 6))\nsns.heatmap(matrix, annot=True, fmt=\".0f\", linewidths=0.5, square=True, cmap='Blues')\nplt.title('Confusion Matrix')\nplt.xlabel('Predicted Label')\nplt.ylabel('True Label')\nplt.show()\n\n\n\n\n\nfrom sklearn.metrics import roc_curve, auc\n\ny_probs = model.predict_proba(X_test)[:, 1]\nfpr, tpr, thresholds = roc_curve(y_test, y_probs)\nroc_auc = auc(fpr, tpr)\n\n# Plot ROC Curve\nplt.figure(figsize=(8, 8))\nplt.plot(fpr, tpr, color='darkorange', lw=2, label=f'AUC = {roc_auc:.2f}')\nplt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')\nplt.xlabel('False Positive Rate')\nplt.ylabel('True Positive Rate')\nplt.title('Receiver Operating Characteristic (ROC) Curve')\nplt.legend(loc='lower right')\nplt.show()"
+  }
+]
