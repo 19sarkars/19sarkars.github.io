@@ -1,1 +1,1 @@
-Sitemap: https://machinelearningblog.com/sitemap.xml
+Sitemap: https://19sarkars.github.io/MLBlog/sitemap.xml
