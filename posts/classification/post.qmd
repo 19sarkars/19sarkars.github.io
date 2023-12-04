@@ -1,0 +1,82 @@
+---
+title: 'Classification'
+author: 'Shivangi Sarkar'
+date: '2023-11-18'
+categories: ['Classification', 'Supervised learning', 'Prediction']
+description: 'An introduction to classification in machine learning.'
+execute: 
+  message: false
+  warning: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# What is classification?
+
+Classification is a machine learning method that relies on supervised learning (this is where the data is labeled). This task uses data to predict categories for an input. For example, an image could be shown to a model and it could categorize the image as either a cat or dog.
+
+# What are the types of classification?
+
+### There are 4 types of classification:
+
+1. Binary Classification: This method of classification is only used in cases where there are two exclusive categories to sort data into. The data is labeled as either 0 or 1 based on the category it falls into. A popular example of this is spam detection; a message is either labeled as spam or not spam. 
+2. Multi-Class Classification: This method is used in cases where there are more than two class labels. Many binary classification algorithms can also be used for multi-class classification.
+3. Multi-Label Classification: In some cases, we may want multiple labels predicted for a data point. Multi-Class classification is capable of this. 
+4. Imbalanced Classification: This method is useful in detecting outliers as a majority of samples in the training dataset belong to a “normal” class and a smaller minority belongs to an “outlier” class. This approach can be used for fraud detection and medical diagnosis tests.
+
+# What are some examples of classification?
+
+* Healthcare: Classification models have been used to predict if a person has a certain disease
+* Education: Classification can be used to organize documents by category or analyze student feedback on their professors
+* Transportation: Classification can determine which locations will have a rise in traffic, as well as predict issues that can occur in a location based on the weather conditions
+
+## Code Example
+```{python}
+# First we will load the dataset we will be using.
+from sklearn.datasets import load_wine
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+import pandas as pd
+
+# This data contains the measurements of different attributes of wines grown by three different cultivators in Italy.
+# Our decision tree will be able to determine which category it belongs in based on the given measurements.
+wine = load_wine()
+X = wine.data
+y = wine.target
+
+# load the dataframe
+df = pd.DataFrame(wine.data, columns = wine.feature_names)
+
+# add labels
+df['label'] = wine.target
+
+# Let's get a preview of what the data looks like
+df.head()
+```
+```{python}
+# Let's split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create a Decision Tree classifier
+model = DecisionTreeClassifier(random_state=42)
+
+# Training
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+# Determine accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+```
+```{python}
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+
+# Let's generate a visualization of what the model looks like
+plt.figure(figsize=(12, 8))
+plot_tree(model, feature_names=wine.feature_names, class_names=wine.target_names.tolist(), filled=True, rounded=True)
+plt.show()
+```

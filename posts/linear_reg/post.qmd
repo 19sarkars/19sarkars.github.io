@@ -1,0 +1,127 @@
+---
+title: 'Linear and Nonlinear Regression'
+author: 'Shivangi Sarkar'
+date: '2023-11-16'
+categories: ['Regression', 'Prediction']
+description: 'An introduction to linear and nonlinear regression.'
+execute: 
+  message: false
+  warning: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# What is linear regression?
+
+Linear regression is simply a model that estimates the relationship one independent variable and one dependent variable. This relationship is assumed to be linear, and is therefore represented by a straight line.
+
+# Applications of linear regression
+
+Linear regression is applied in various areas:
+
+-   Medicine: It can be used to find correlations between various factors such as age, body weight, and blood pressure
+-   Environmental health: The relationships between natural elements can be evaluated
+-   Sports analysis: Team and player performance in a game can be analyzed
+
+# What is nonlinear regression?
+
+Nonlinear regression differs from linear regression in that it assumes that the dependent variable is a nonlinear function of the independent variables. This means the relationship can appear exponential, polynomial, or logarithmic.
+
+# Applications of nonlinear regression
+
+Nonlinear regression can also be applied in various ways:
+
+-   Agricultural research: Crops and soil processes are better captured as nonlinear models
+-   Economic growth: Logistic models can be used to predict population growth over time
+-   Drug response modeling: Nonlinear regression can come in useful when modeling the relationship between drug dosage and physiological responses.
+
+# How do I choose between linear and nonlinear regression?
+
+In order to decide between linear and nonlinear regression for a data set, you must consider the following factors:
+
+-   The purpose of your data
+-   The quality of your data
+-   The number of independent variables
+-   The criteria you use to evaluate your models
+
+First, you should plot your data and visually inspect the relationship between variables. If the data points align well as a line, linear regression should be chosen. If curved, nonlinear regression is the better option. Sometimes this may not be enough and you may have to go through a process of trial and error to determine the optimal regression method.
+
+## Code example
+```{python}
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report
+
+# First we will load the dataset we will be using.
+cancer = load_breast_cancer()
+
+# load the dataframe
+df = pd.DataFrame(cancer.data, columns = cancer.feature_names)
+
+# add labels
+df['target'] = cancer.target
+
+# Let's get a preview of what the data looks like
+df.head()
+```
+```{python}
+X = df.drop('target', axis=1)
+y = df['target']
+
+# Now let's split the dataset into a training and testing set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Preprocess the data
+# Standardize the features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create a logistic regression model
+model = LogisticRegression()
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Make predictions with the test data
+y_pred = model.predict(X_test)
+
+# Check accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+```
+```{python}
+# Let's get a visual representation of the model's performance
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+matrix = confusion_matrix(y_test, y_pred)
+
+plt.figure(figsize=(6, 6))
+sns.heatmap(matrix, annot=True, fmt=".0f", linewidths=0.5, square=True, cmap='Blues')
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.show()
+```
+```{python}
+from sklearn.metrics import roc_curve, auc
+
+y_probs = model.predict_proba(X_test)[:, 1]
+fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+roc_auc = auc(fpr, tpr)
+
+# Plot ROC Curve
+plt.figure(figsize=(8, 8))
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'AUC = {roc_auc:.2f}')
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic (ROC) Curve')
+plt.legend(loc='lower right')
+plt.show()
+```

@@ -1,0 +1,19 @@
+project:
+  type: website
+
+website:
+  title: "Machine Learning Blog"
+  site-url: https://machinelearningblog.com
+  description: "This is Shivangi Sarkar's blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/19sarkars
+format:
+  html:
+    theme: morph
+    css: styles.css
+
+editor: visual
+

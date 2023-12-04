@@ -1,0 +1,13 @@
+---
+title: "About"
+image: profile.jpg
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/19sarkars
+
+---
+
+Hi, my name is Shivangi Sarkar. I'm an MEng student at Virginia Tech with a concentration in Data Analytics and AI.

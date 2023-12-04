@@ -1,0 +1,71 @@
+---
+title: 'Anomaly/Outlier Detection'
+author: 'Shivangi Sarkar'
+date: '2023-11-21'
+categories: ['Anomaly detection']
+description: 'An introduction to anomaly/outlier detection in machine learning.'
+execute: 
+  message: false
+  warning: false
+editor_options: 
+  chunk_output_type: console
+---
+
+# What is anomaly detection?
+
+Anomaly detection is a process that is very commonly found in today’s world. It is the process of detecting data points that are outliers, or fall outside the normal range. 
+
+# What are the types of outliers?
+
+### There are 3 types of outliers:
+
+1. Global outliers: These are outliers that are outside the range of all the other points in a dataset
+2. Contextual outliers: These deviate from other points in a specific area or context
+3. Collective outliers: These are groups of data points that deviate from the normal range.
+
+# What are the weaknesses of anomaly detection?
+
+* Poor data quality can affect the performance of anomaly detection
+* The anomaly detection algorithm itself can be poor and result in false alarms
+* Developing a baseline that accounts for normal patterns that occur less frequently such as heat waves or cold fronts.
+
+# What are some examples of applications using anomaly detection?
+
+* Cybersecurity: Anomaly detection is capable of detecting changes in access requests and traffic
+* Finance: Fraud can be detected by monitoring various factors such as the size of transactions, spending rate, location, and time
+* Healthcare: Anomaly detection can be used to monitor disease rates and detect outbreaks ahead of time
+
+## Code Example
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import IsolationForest
+
+# Generate a one-dimensional dataset with anomalies
+np.random.seed(42)
+normal_data = np.random.normal(loc=0, scale=1, size=1000)
+anomalies = np.concatenate([normal_data, np.random.normal(loc=10, scale=1, size=10)])
+
+# Reshape the data to a column vector
+data = anomalies.reshape(-1, 1)
+
+# Fit the Isolation Forest model
+clf = IsolationForest(contamination=0.01, random_state=42)  # Contamination is the expected proportion of outliers
+clf.fit(data)
+
+# Predict the anomalies
+predictions = clf.predict(data)
+
+# Visualize the results
+plt.scatter(range(len(data)), data, c=np.where(predictions == -1, 'red', 'blue'))
+plt.xlabel('Data Point Index')
+plt.ylabel('Value')
+plt.title('Anomaly Detection with Isolation Forest')
+plt.legend()
+plt.show()
+```
+1. We generate a one-dimensional dataset with normal data points and a few anomalies.
+2. We reshape the data to a column vector as scikit-learn's Isolation Forest expects a 2D array.
+3. We fit an Isolation Forest model to the data, specifying the contamination parameter to indicate the expected proportion of outliers.
+5. We predict whether each data point is an anomaly or not.
+6. We visualize the data points, coloring anomalies in red.
